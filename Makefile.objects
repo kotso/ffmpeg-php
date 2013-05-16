@@ -1,0 +1,16 @@
+ffmpeg-php.lo: /usr/src/php-ffmpeg/ffmpeg-php.c
+	$(LIBTOOL) --mode=compile $(CC) $(GDLIB_CFLAGS) -I. -I/usr/src/php-ffmpeg $(COMMON_FLAGS) $(CFLAGS_CLEAN) $(EXTRA_CFLAGS)  -c /usr/src/php-ffmpeg/ffmpeg-php.c -o ffmpeg-php.lo 
+ffmpeg_movie.lo: /usr/src/php-ffmpeg/ffmpeg_movie.c
+	$(LIBTOOL) --mode=compile $(CC) $(GDLIB_CFLAGS) -I. -I/usr/src/php-ffmpeg $(COMMON_FLAGS) $(CFLAGS_CLEAN) $(EXTRA_CFLAGS)  -c /usr/src/php-ffmpeg/ffmpeg_movie.c -o ffmpeg_movie.lo 
+ffmpeg_frame.lo: /usr/src/php-ffmpeg/ffmpeg_frame.c
+	$(LIBTOOL) --mode=compile $(CC) $(GDLIB_CFLAGS) -I. -I/usr/src/php-ffmpeg $(COMMON_FLAGS) $(CFLAGS_CLEAN) $(EXTRA_CFLAGS)  -c /usr/src/php-ffmpeg/ffmpeg_frame.c -o ffmpeg_frame.lo 
+ffmpeg_errorhandler.lo: /usr/src/php-ffmpeg/ffmpeg_errorhandler.c
+	$(LIBTOOL) --mode=compile $(CC) $(GDLIB_CFLAGS) -I. -I/usr/src/php-ffmpeg $(COMMON_FLAGS) $(CFLAGS_CLEAN) $(EXTRA_CFLAGS)  -c /usr/src/php-ffmpeg/ffmpeg_errorhandler.c -o ffmpeg_errorhandler.lo 
+ffmpeg_tools.lo: /usr/src/php-ffmpeg/ffmpeg_tools.c
+	$(LIBTOOL) --mode=compile $(CC) $(GDLIB_CFLAGS) -I. -I/usr/src/php-ffmpeg $(COMMON_FLAGS) $(CFLAGS_CLEAN) $(EXTRA_CFLAGS)  -c /usr/src/php-ffmpeg/ffmpeg_tools.c -o ffmpeg_tools.lo 
+$(phplibdir)/ffmpeg.la: ./ffmpeg.la
+	$(LIBTOOL) --mode=install cp ./ffmpeg.la $(phplibdir)
+
+./ffmpeg.la: $(shared_objects_ffmpeg) $(FFMPEG_SHARED_DEPENDENCIES)
+	$(LIBTOOL) --mode=link $(CC) $(COMMON_FLAGS) $(CFLAGS_CLEAN) $(EXTRA_CFLAGS) $(LDFLAGS) -o $@ -export-dynamic -avoid-version -prefer-pic -module -rpath $(phplibdir) $(EXTRA_LDFLAGS) $(shared_objects_ffmpeg) $(FFMPEG_SHARED_LIBADD)
+
